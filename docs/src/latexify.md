@@ -43,14 +43,14 @@ expected:
 
 ```@example main
 latexify([12u"m", 1u"m^2", 4u"m^3"])
-LaTeXString("\$\$" * ans * "\$\$") # hide
+LaTeXString("\$" * chopsuffix(chopprefix(ans, "\\begin{equation}\n"), "\n\\end{equation}\n") * "\$") # hide
 ```
 
 A special case is an array where all elements have the same unit, and here
 the extension does some extra work:
 ```@example main
 latexify([1, 2, 3]u"cm")
-LaTeXString("\$\$" * ans * "\$\$") # hide
+LaTeXString("\$" * chopsuffix(chopprefix(ans, "\\begin{equation}\n"), "\n\\end{equation}\n") * "\$") # hide
 ```
 
 
@@ -72,7 +72,7 @@ print(ans) # hide
 
 Another thing that `siunitx` does uniquely is lists and ranges of quantities.
 To get `siunitx`'s list behavior, pass a tuple instead of an array;
-if you want a tuple to be written as an array instead, use `collect(x)` or `[x...]` to explicitly it into an array first.
+if you want a tuple to be written as an array instead, use `collect(x)` or `[x...]` to convert it into an array first.
 
 ```@example main
 latexify((1, 2, 3).*u"m")
